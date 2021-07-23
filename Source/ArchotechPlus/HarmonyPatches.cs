@@ -48,4 +48,65 @@ namespace ArchotechPlus
             }
 		}
 	}
+	[HarmonyPatch(typeof(CompUseEffect_InstallImplant), "CanBeUsedBy")]
+	public static class CompUseEffect_InstallImplant_UsedBy_Patch
+    {
+		public static bool Prefix(ref bool __result, CompUseEffect_InstallImplant __instance, Pawn p, out string failReason)
+        {
+			failReason = null;
+			if ((!p.IsFreeColonist || p.HasExtraHomeFaction()) && !__instance.Props.allowNonColonists)
+			{
+				return true;
+			}
+			if (p.RaceProps.body.GetPartsWithDef(__instance.Props.bodyPart).FirstOrFallback() == null)
+			{
+				return true;
+			}
+			Hediff existingImplant = __instance.GetExistingImplant(p);
+			if (existingImplant != null)
+			{
+				if (!__instance.Props.canUpgrade)
+				{
+					return true;
+				}
+				if(existingImplant is Hediff_ImplantWithLevel)
+                {
+					Hediff_ImplantWithLevel hediff_Level = (Hediff_ImplantWithLevel)existingImplant;
+					if ((float)hediff_Level.level >= hediff_Level.def.maxSeverity)
+					{
+						failReason = "InstallImplantAlreadyMaxLevel".Translate();
+						__result = false;
+						return false;
+					}
+					__result = true;
+					return false;
+				}
+			}
+			return true;
+        }
+    }
+
+	[HarmonyPatch(typeof(CompUseEffect_InstallImplant), "DoEffect")]
+	public static class CompUseEffect_InstallImplant_doEffect_Patch
+	{
+		public static bool Prefix(CompUseEffect_InstallImplant __instance, Pawn user)
+		{
+			BodyPartRecord bodyPartRecord = user.RaceProps.body.GetPartsWithDef(__instance.Props.bodyPart).FirstOrFallback();
+			if (bodyPartRecord != null)
+			{
+				Hediff firstHediffOfDef = user.health.hediffSet.GetFirstHediffOfDef(__instance.Props.hediffDef);
+				if (firstHediffOfDef == null || firstHediffOfDef is Hediff_Level)
+				{
+					return true;
+				}
+				else if (firstHediffOfDef is Hediff_ImplantWithLevel)
+				{
+					((Hediff_ImplantWithLevel)firstHediffOfDef).ChangeLevel(1);
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
 }

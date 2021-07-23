@@ -63,7 +63,7 @@ See the link below for In-Game Effects:</description>
 	</ThingDef>
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>ArchotechRegenerator</defName>
-		<hediffClass>HediffWithComps</hediffClass>
+		<hediffClass>Hediff_ImplantWithLevel</hediffClass>
 		<descriptionHyperlinks>
 			<ThingDef>ArchotechRegenerator</ThingDef>
 		</descriptionHyperlinks>
@@ -197,7 +197,7 @@ See the link below for In-Game Effects:</description>
 	</ThingDef>
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>ArchotechSubdermalArmor</defName>
-		<hediffClass>Hediff_Level</hediffClass>
+		<hediffClass>Hediff_ImplantWithLevel</hediffClass>
 		<descriptionHyperlinks>
 			<ThingDef>ArchotechSubdermalArmor</ThingDef>
 		</descriptionHyperlinks>
@@ -350,7 +350,7 @@ See the link below for In-Game Effects:</description>
 
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>ArchotechCortex</defName>
-		<hediffClass>Hediff_Level</hediffClass>
+		<hediffClass>Hediff_ImplantWithLevel</hediffClass>
 		<descriptionHyperlinks>
 			<ThingDef>ArchotechCortex</ThingDef>
 		</descriptionHyperlinks>
@@ -516,7 +516,7 @@ See the link below for In-Game Effects:</description>
 	</ThingDef>
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>ArchotechBioadapter</defName>
-		<hediffClass>Hediff_Level</hediffClass>
+		<hediffClass>Hediff_ImplantWithLevel</hediffClass>
 		<descriptionHyperlinks>
 			<ThingDef>ArchotechBioadapter</ThingDef>
 		</descriptionHyperlinks>

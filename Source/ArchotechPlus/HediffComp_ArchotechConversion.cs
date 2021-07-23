@@ -43,6 +43,10 @@ namespace ArchotechPlus
                                         {
                                             withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
                                         }
+                                        if (newHediff is Hediff_ImplantWithLevel withImplLevel)
+                                        {
+                                            withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
+                                        }
                                     }
                                     else
                                     {
@@ -67,6 +71,10 @@ namespace ArchotechPlus
                         {
                             withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
                         }
+                        if (newHediff is Hediff_ImplantWithLevel withImplLevel)
+                        {
+                            withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
+                        }
                     }
                 }
             }
@@ -84,6 +92,10 @@ namespace ArchotechPlus
                     if (newHediff is Hediff_Level withLevel)
                     {
                         withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
+                    }
+                    if (newHediff is Hediff_ImplantWithLevel withImplLevel)
+                    {
+                        withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
                     }
                 }
             }
