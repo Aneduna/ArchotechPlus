@@ -70,19 +70,18 @@ namespace ArchotechPlus
 				{
 					return true;
 				}
-				if (existingImplant is Hediff_ImplantWithLevel)
+                if (existingImplant is Hediff_ImplantWithLevel hediff_Level)
                 {
-					Hediff_ImplantWithLevel hediff_Level = (Hediff_ImplantWithLevel)existingImplant;
-					if ((float)hediff_Level.level >= hediff_Level.def.maxSeverity)
-					{
-						failReason = "InstallImplantAlreadyMaxLevel".Translate();
-						__result = false;
-						return false;
-					}
-					__result = true;
-					return false;
-				}
-				if (existingImplant?.GetType() == typeof(HediffWithComps))
+                    if ((float)hediff_Level.level >= hediff_Level.def.maxSeverity)
+                    {
+                        failReason = "InstallImplantAlreadyMaxLevel".Translate();
+                        __result = false;
+                        return false;
+                    }
+                    __result = true;
+                    return false;
+                }
+                if (existingImplant?.GetType() == typeof(HediffWithComps))
                 {
 					Log.Warning("Trying to apply install something that is upgradable, but only HediffWithComps.");
 					Log.Warning("If there is an Error below, try removing the implant that you're trying to upgrade and try again.");
@@ -105,9 +104,9 @@ namespace ArchotechPlus
 				{
 					return true;
 				}
-				else if (firstHediffOfDef is Hediff_ImplantWithLevel)
+				else if (firstHediffOfDef is Hediff_ImplantWithLevel level)
 				{
-					((Hediff_ImplantWithLevel)firstHediffOfDef).ChangeLevel(1);
+					level.ChangeLevel(1);
 					return false;
 				}
 			}
