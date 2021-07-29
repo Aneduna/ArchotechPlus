@@ -14,6 +14,19 @@ namespace ArchotechPlus
     }
     public class HediffComp_ArchotechConversion : HediffComp
     {
+        private void EnsureMaxLevel(Hediff part)
+        {
+            if (part is Hediff_Level withLevel)
+            {
+                withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
+                withLevel.Severity = withLevel.def.maxSeverity;
+            }
+            if (part is Hediff_ImplantWithLevel withImplLevel)
+            {
+                withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
+                withImplLevel.Severity = withImplLevel.def.maxSeverity;
+            }
+        }
         public override void CompPostPostAdd(DamageInfo? dinfo)
         {
             base.CompPostPostAdd(dinfo);
@@ -39,14 +52,7 @@ namespace ArchotechPlus
                                         }
                                         var newHediff = HediffMaker.MakeHediff(implant.addsHediff, Pawn);
                                         Pawn.health.AddHediff(newHediff, part);
-                                        if (newHediff is Hediff_Level withLevel)
-                                        {
-                                            withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
-                                        }
-                                        if (newHediff is Hediff_ImplantWithLevel withImplLevel)
-                                        {
-                                            withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
-                                        }
+                                        EnsureMaxLevel(newHediff);
                                     }
                                     else
                                     {
@@ -67,14 +73,7 @@ namespace ArchotechPlus
                     {
                         var newHediff = HediffMaker.MakeHediff(implant.addsHediff, Pawn);
                         Pawn.health.AddHediff(newHediff);
-                        if (newHediff is Hediff_Level withLevel)
-                        {
-                            withLevel.SetLevelTo((int)withLevel.def.maxSeverity);
-                        }
-                        if (newHediff is Hediff_ImplantWithLevel withImplLevel)
-                        {
-                            withImplLevel.SetLevelTo((int)withImplLevel.def.maxSeverity);
-                        }
+                        EnsureMaxLevel(newHediff);
                     }
                 }
             }

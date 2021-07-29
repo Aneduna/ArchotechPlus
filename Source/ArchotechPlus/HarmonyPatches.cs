@@ -52,7 +52,7 @@ namespace ArchotechPlus
 	public static class CompUseEffect_InstallImplant_UsedBy_Patch
     {
 		public static bool Prefix(ref bool __result, CompUseEffect_InstallImplant __instance, Pawn p, out string failReason)
-        {
+		{
 			failReason = null;
 			if ((!p.IsFreeColonist || p.HasExtraHomeFaction()) && !__instance.Props.allowNonColonists)
 			{
@@ -65,11 +65,12 @@ namespace ArchotechPlus
 			Hediff existingImplant = __instance.GetExistingImplant(p);
 			if (existingImplant != null)
 			{
+
 				if (!__instance.Props.canUpgrade)
 				{
 					return true;
 				}
-				if(existingImplant is Hediff_ImplantWithLevel)
+				if (existingImplant is Hediff_ImplantWithLevel)
                 {
 					Hediff_ImplantWithLevel hediff_Level = (Hediff_ImplantWithLevel)existingImplant;
 					if ((float)hediff_Level.level >= hediff_Level.def.maxSeverity)
@@ -81,6 +82,11 @@ namespace ArchotechPlus
 					__result = true;
 					return false;
 				}
+				if (existingImplant?.GetType() == typeof(HediffWithComps))
+                {
+					Log.Warning("Trying to apply install something that is upgradable, but only HediffWithComps.");
+					Log.Warning("If there is an Error below, try removing the implant that you're trying to upgrade and try again.");
+                }
 			}
 			return true;
         }
