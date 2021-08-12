@@ -117,15 +117,40 @@ namespace ArchotechPlus
             return Pawn.health.hediffSet.hediffs.Where(hd => hd.def.tendable).TryRandomElement(out var result) ? result : null;
         }
 
+        private bool SpecialEyesRule(Hediff_MissingPart part) 
+        {
+            //Log.Message("Special Eyes Rule");
+            if(ArchotechPlusSettings.RegeneratorAlwaysHealEyes)
+            {
+                //Log.Message("Setting is on to always heal");
+                return true;
+            } else if(part?.Part?.def?.defName != "Eye")
+            {
+                //Log.Message("Part is not Eyes");
+                return true;
+            } else if(Pawn?.Ideo?.IdeoApprovesOfBlindness() ?? false)
+            {
+                //Log.Message("Special Case applies, skipping this");
+                return false;
+            } else
+            {
+                //Log.Message("Ideology doesn't want Blindness");
+                return true;
+            }
+        }
+
+
         private BodyPartRecord FindBiggestMissingBodyPart(float minCoverage = 0.0f)
         {
             BodyPartRecord bodyPartRecord = null;
             foreach (var partsCommonAncestor in Pawn.health.hediffSet.GetMissingPartsCommonAncestors().Where(
                 partsCommonAncestor =>
-                    (double) partsCommonAncestor.Part.coverageAbsWithChildren >= (double) minCoverage &&
-                    !Pawn.health.hediffSet.PartOrAnyAncestorHasDirectlyAddedParts(partsCommonAncestor.Part) &&
-                    (bodyPartRecord == null || (double) partsCommonAncestor.Part.coverageAbsWithChildren >
-                        (double) bodyPartRecord.coverageAbsWithChildren)))
+                    (double) partsCommonAncestor.Part.coverageAbsWithChildren >= (double) minCoverage
+                    && !Pawn.health.hediffSet.PartOrAnyAncestorHasDirectlyAddedParts(partsCommonAncestor.Part)
+                    && (bodyPartRecord == null || (double) partsCommonAncestor.Part.coverageAbsWithChildren >
+                        (double) bodyPartRecord.coverageAbsWithChildren)
+                    && SpecialEyesRule(partsCommonAncestor)
+                    ))
             {
                 bodyPartRecord = partsCommonAncestor.Part;
             }
