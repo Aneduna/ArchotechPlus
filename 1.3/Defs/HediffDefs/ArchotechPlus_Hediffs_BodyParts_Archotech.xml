@@ -366,17 +366,13 @@ Level 2: 50% faster learning, 50% faster research, +20% medical tend/surgery qua
 		<initialSeverity>1</initialSeverity>
 		<minSeverity>0</minSeverity>
 		<maxSeverity>2</maxSeverity>
-
-		    <disablesNeeds>
-		      <li>Rest</li>
-		    </disablesNeeds>
 		<stages>
 			<li>
 				<partEfficiencyOffset>0.5</partEfficiencyOffset>
 				<painFactor>0</painFactor>
 				<minSeverity>1</minSeverity>
 				<statOffsets>
-					<GlobalLearningFactor>0.25</GlobalLearningFactor>
+					<RestRateMultiplier>0.1</RestRateMultiplier>
 					<ResearchSpeed>0.25</ResearchSpeed>
 					<MedicalTendQuality>0.10</MedicalTendQuality>
 					<MedicalSurgerySuccessChance>0.10</MedicalSurgerySuccessChance>
@@ -389,6 +385,7 @@ Level 2: 50% faster learning, 50% faster research, +20% medical tend/surgery qua
 				<painFactor>0</painFactor>
 				<minSeverity>2</minSeverity>
 				<statOffsets>
+					<RestRateMultiplier>0.01</RestRateMultiplier>
 					<GlobalLearningFactor>0.5</GlobalLearningFactor>
 					<ResearchSpeed>0.5</ResearchSpeed>
 					<MedicalTendQuality>0.20</MedicalTendQuality>
